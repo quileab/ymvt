@@ -1,0 +1,21 @@
+<form action="/" method="post">
+
+    <input type="text" class="form-control w-full rounded px-3 py-2 text-gray-900 mb-2" id="apellido-nombre"
+      name="apellido-nombre" placeholder="Tu nombre completo">
+
+
+    <input type="email" class="form-control w-full rounded px-3 py-2 text-gray-900 mb-2" id="email" name="email"
+      placeholder="Tu correo electrónico">
+
+  <select name="tipo" class="form-control w-full rounded px-3 py-2 text-gray-900 mb-2">
+    <option value="sugerencia" default>Sugerencia</option>
+    <option value="reclamo">Reclamo</option>
+  </select>
+
+    <textarea class="form-control w-full rounded px-2 py-1 text-gray-900" id="mensaje" name="mensaje"
+      placeholder="Tu mensaje"></textarea>
+
+  <button type="submit"
+    class="btn w-full text-base md:text-xs bg-green-800 hover:bg-green-600 text-gray-100 hover:font-bold py-2 px-4 rounded">
+    ENVIAR</button>
+</form>

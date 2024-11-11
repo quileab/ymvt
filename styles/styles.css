@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+:root{
+  --base-color: #faf4d4;
+  --primary-color: #025f00;
+  --secondary-color: #4f3a35;
+}
+
+*{
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--base-color);
+  background: rgb(7,102,0);
+  background: linear-gradient(137deg, rgba(7,102,0,1) 0%, rgba(255,247,178,1) 16%, rgba(8,121,0,1) 100%);
+}
+
+h1{
+  font-family: 'The Nautigal', cursive;
+}
+
+h2{
+  font-family: 'Antic Didone', serif;
+}
+
+a{
+  display: inline-block;
+  vertical-align: middle;
+  align-items: center;
+
+}
+
+input::placeholder, textarea::placeholder {
+  font-weight: bold;
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+dialog {
+	padding: 0 0 0 0em;
+	border-radius: 0.5rem;
+	border:1px solid #ccc;
+	box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.3);
+	overflow: auto;
+	font-size: larger;
+  background-color: rgb(204, 212, 198);
+}
+
+dialog::backdrop {
+	background: linear-gradient(0deg, rgb(25, 80, 0), rgb(100, 105, 0));
+	opacity: 0.6;
+}
+
+#closeDialog {
+	margin:0 auto;
+	display: block;
+	width: 100%;
+	position:sticky;
+	top: 0;
+}
+
+dialog button {
+	width: 100%;
+}
+dialog div {
+	padding: 1em;
+	width: 100%;
+	height: 90%;
+}
