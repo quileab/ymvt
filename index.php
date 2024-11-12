@@ -52,6 +52,11 @@
               class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">
               Contactos</a>
           </li>
+          <li class="md:py-3 py-5">
+            <a href="./p=legal"
+              class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">
+              Legales</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -62,40 +67,33 @@
   </section>
 
   <?php
-$popularDestinations=[
-  "YM-0000"=> [
-    "Hero"=> "https://www.argentina.gob.ar/sites/default/files/corrientes-pora-2.jpg",
-  "Destination"=> "Corrientes",
-  "Province"=> "Corrientes",
-  "PriceOld"=> "$ 0,00",
-  "Price"=> "$ 0,00",
-  "DateFrom"=> "01-01-2023",
-  "DateTo"=> "01-01-2023",
-  "Description"=> "El clima predominante es subtropical sin estación seca, con precipitaciones abundantes y temperaturas elevadas de escasas variaciones diarias y estacionales, sobre todo en el NO. El sur provincial presenta un clima más asociado al templado pampeano."
-  ],
-  "YM-0001"=> [
-    "Hero"=> "https://www.argentina.gob.ar/sites/default/files/cataratas_2.jpg",
-  "Destination"=> "Cataratas",
-  "Province"=> "Misiones",
-  "PriceOld"=> "$ 0,00",
-  "Price"=> "$ 0,00",
-  "DateFrom"=> "01-01-2023",
-  "DateTo"=> "01-01-2023",
-  "Description"=> "La conformación de nuestra sociedad ha sido fruto de un largo y enriquecedor proceso de construcción sociocultural, debido al entrecruzamiento de guaraníes, jesuitas, inmigrantes y criollos, lo que dio forma a lo que es hoy un pueblo respetuoso de la diversidad y pluralidad."
-  ],
-  "YM-0002"=> [
-    "Hero"=> "https://www.argentina.gob.ar/sites/default/files/jujuy_13.jpg",
-    "Destination"=> "San Salvador de Jujuy",
-    "Province"=> "Jujuy",
-    "PriceOld"=> "$ 0,00",
-    "Price"=> "$ 0,00",
-    "DateFrom"=> "01-01-2023",
-    "DateTo"=> "01-01-2023",
-    "Description"=> "Este valle y sus aldeas quechuas se ubican en el norte de la capital provincial y el acceso regional, San Salvador de Jujuy. En el sur del valle, las laderas rocosas del icónico Cerro de los Siete Colores sobresalen de la villa colonial Purmamarca."
-    ],
-  
-  ];
+require_once 'app/conn.php';
 
+$query = "
+SELECT 
+    d.id,
+    d.destination AS Destination,
+    d.description AS Description,
+    d.price AS Price,
+    d.promo_price AS PriceOld,
+    d.departure AS DateFrom,
+    d.arrival AS DateTo,
+    CONCAT('/uploads/destinations/', d.id, '-001.jpg') AS Hero
+FROM 
+    destinations d
+ORDER BY 
+    d.departure ASC
+LIMIT 10
+";
+
+$result = $conn->query($query);
+
+$popularDestinations = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $popularDestinations[] = $row;
+    }
+}
 ?>
 
   <section id="legal" class="container my-6 mx-auto">
@@ -130,7 +128,7 @@ $popularDestinations=[
         <div class="px-4 py-3">
           <div class="font-bold text-base mb-2">
             <?= $value["Destination"] ?>
-            <span class="text-gray-400 text-xs font-light">» <?= $value["Province"] ?></span>
+
           </div>
           <div class="grid md:grid-cols-2 gap-2 grid-cols-1 text-center text-2xl md:text-base">
             <del><small><?= $value["PriceOld"]?></small></del>

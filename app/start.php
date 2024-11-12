@@ -1,41 +1,65 @@
 <?php
-// Inicia la sesión
-session_start();
+require_once 'conn.php';
 
-// Incluir la conexión a la base de datos
-include 'conn.php';
+// Crear la tabla `users` si no existe
+$createUsersTable = "
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role varchar(10) NOT NULL DEFAULT 'customer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+";
 
-// Verificar si la tabla 'users' está vacía
-$query = "SELECT COUNT(*) AS user_count FROM users";
-$result = $conn->query($query);
-$row = $result->fetch_assoc();
-
-// Si no hay usuarios, crea un usuario admin
-if ($row['user_count'] == 0) {
-    // Datos por defecto para el usuario admin
-    $username = 'admin';
-    $password = 'admin123';  // Cambia esta contraseña por una más segura
-
-    // Encriptar la contraseña antes de guardarla
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    // Insertar el usuario admin en la base de datos
-    $insertQuery = "INSERT INTO users (username, password, email, role) VALUES (?, ?, 'admin@admin.com', 'admin')";
-    $stmt = $conn->prepare($insertQuery);
-    $stmt->bind_param('ss', $username, $hashed_password);
-    
-    if ($stmt->execute()) {
-        echo "Usuario admin creado con éxito.";
-    } else {
-        echo "Error al crear el usuario admin: " . $stmt->error;
-    }
-
-    // Cerrar la declaración
-    $stmt->close();
+if ($conn->query($createUsersTable) === TRUE) {
+    echo "Tabla `users` verificada.<br>";
 } else {
-    echo "Ya existen usuarios en la base de datos.";
+    echo "Error creando la tabla `users`: " . $conn->error . "<br>";
 }
 
-// Cerrar la conexión a la base de datos
+// Crear la tabla `destinations` si no existe
+$createDestinationsTable = "
+CREATE TABLE IF NOT EXISTS destinations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    destination TEXT NOT NULL,
+    description LONGTEXT,
+    departure TIMESTAMP,
+    arrival TIMESTAMP,
+    price DECIMAL(12,2) NOT NULL,
+    promo_price DECIMAL(12,2) DEFAULT NULL,
+    tags TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+";
+
+if ($conn->query($createDestinationsTable) === TRUE) {
+    echo "Tabla `destinations` verificada.<br>";
+} else {
+    echo "Error creando la tabla `destinations`: " . $conn->error . "<br>";
+}
+
+// Verificar si existe un usuario "admin"
+$checkAdminQuery = "SELECT id FROM users WHERE username = 'admin'";
+$result = $conn->query($checkAdminQuery);
+
+if ($result->num_rows === 0) {
+    // No existe el usuario admin, se crea uno nuevo con una contraseña por defecto
+    $defaultPassword = password_hash('admin123', PASSWORD_DEFAULT);
+    $insertAdmin = "
+    INSERT INTO users (username, email, password, role)
+    VALUES ('admin', 'admin@example.com', '$defaultPassword', 'admin')
+    ";
+
+    if ($conn->query($insertAdmin) === TRUE) {
+        echo "Usuario `admin` creado con contraseña por defecto.<br>";
+    } else {
+        echo "Error al crear el usuario `admin`: " . $conn->error . "<br>";
+    }
+} else {
+    echo "Usuario `admin` ya existe.<br>";
+}
+
 $conn->close();
-?>
+header("Location: /app/index.php");

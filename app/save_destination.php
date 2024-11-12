@@ -1,11 +1,12 @@
 <?php
+session_start();
 // Conectar a la base de datos
 include "conn.php";
 
 // Obtener y sanitizar datos
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 $destination = //filter_input(INPUT_POST, 'destination', FILTER_SANITIZE_STRING);
-  preg_replace('/[^a-zA-Z0-9 ,.-]/', '', strip_tags($_POST['destination']));
+  preg_replace('/[^a-zA-Z0-9ÑñÁáÉéÍíÓóÚúÜü ,.-]/', '', strip_tags($_POST['destination']));
 $description = //filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
   //strip_tags(
     $_POST['description'];
@@ -19,6 +20,7 @@ $tags = //filter_input(INPUT_POST, 'tags', FILTER_SANITIZE_STRING);
   preg_replace('/[^a-zA-Z0-9,]/', '', $_POST['tags']);
 // Carpeta donde se guardarán las imágenes
 $uploadDir = __DIR__.'/../uploads/destinations';
+$message = "Registro guardado con éxito.";
 
 // Si no existe la carpeta, crearla
 if (!is_dir($uploadDir)) {
@@ -30,15 +32,24 @@ if (!empty($_FILES['images']['name'][0])) {
   
   foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
       if ($_FILES['images']['error'][$index] == UPLOAD_ERR_OK) {
-          // Formatear el nombre del archivo
-          $filename = sprintf('%d-%03d.jpg', $id, $imageCount);
-          $destinationPath = "$uploadDir/$filename";
+          do {
+              // Formatear el nombre del archivo
+              $filename = sprintf('%d-%03d.jpg', $id, $imageCount);
+              $destinationPath = "$uploadDir/$filename";
+
+              // Si el archivo ya existe, incrementar el contador
+              if (file_exists($destinationPath)) {
+                  $imageCount++;
+              } else {
+                  break; // Salir del bucle si no existe el archivo
+              }
+          } while (true);
 
           // Mover el archivo a la carpeta de destino
           if (move_uploaded_file($tmpName, $destinationPath)) {
               $imageCount++;
           } else {
-              echo "Error al guardar la imagen $filename.";
+              $message = "Error al guardar la imagen $filename.";
           }
       }
   }
@@ -50,15 +61,16 @@ if ($id) {
     $stmt = $conn->prepare("UPDATE destinations SET destination = ?, description = ?, departure = ?, arrival = ?, price = ?, promo_price = ?, tags = ? WHERE id = ?");
     $stmt->bind_param("ssssddsi", $destination, $description, $departure, $arrival, $price, $promo_price, $tags, $id);
     $stmt->execute();
-    echo "Destino actualizado con éxito.";
+    $message = "Destino actualizado con éxito.";
 } else {
     // Insertar nuevo destino
     $stmt = $conn->prepare("INSERT INTO destinations (destination, description, departure, arrival, price, promo_price, tags) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssdds", $destination, $description, $departure, $arrival, $price, $promo_price, $tags);
     $stmt->execute();
-    echo "Destino guardado con éxito.";
+    $message = "Destino guardado con éxito.";
 }
 
 $stmt->close();
 $conn->close();
-?>
+$_SESSION['message'] = $message;
+header("Location: /app/index.php?page=destinations_table");

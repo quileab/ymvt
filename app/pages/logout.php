@@ -11,4 +11,4 @@ session_destroy();
 // Redirigir al usuario al login o página de inicio
 header("Location: index.php?page=login");
 exit;
-?>
+

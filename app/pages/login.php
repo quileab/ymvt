@@ -2,7 +2,7 @@
 include 'conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
+    $username = preg_replace('/[^a-zA-Z0-9ÑñÁáÉéÍíÓóÚúÜü_-]/', '', strip_tags($_POST['username']));
     $password = $_POST['password'];
     $query = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $query->bind_param('s', $username);
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header('Location: /app/index.php');
+        header('Location: ./index.php?page=home');
         exit;
     } else {
         $error = "Usuario o contraseña incorrectos.";
