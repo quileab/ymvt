@@ -18,7 +18,7 @@
             <a href="index.php" class="text-lg font-semibold">🌐 YerbaMate</a>
         </div>
         <ul class="flex space-x-4">
-            <li><a href="../index.php" class="hover:underline">Inicio</a></li>
+            <li><a href="index.php" class="hover:underline">Inicio</a></li>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <li><a href="index.php?page=user_form" class="hover:underline">Nuevo Usuario</a></li>
                 <li><a href="index.php?page=destination_form" class="hover:underline">Nuevo Destino</a></li>
