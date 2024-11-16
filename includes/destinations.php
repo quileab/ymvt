@@ -10,7 +10,7 @@ SELECT
     d.promo_price AS PriceOld,
     d.departure AS DateFrom,
     d.arrival AS DateTo,
-    CONCAT('/uploads/destinations/', d.id, '-001.jpg') AS Hero
+    CONCAT('/uploads/destinations/', d.id, '-featured.jpg') AS Hero
 FROM 
     destinations d
 ORDER BY 
@@ -51,9 +51,11 @@ if ($result && $result->num_rows > 0) {
         <p class="text-gray-900 text-2xl md:text-base">
           <small><?= $value["Description"] ?></small>
         </p>
+        <a href="./?page=destination&id=<?= $value["id"]?>">
         <button class="mt-4 w-full text-base md:text-xs bg-green-700 hover:bg-green-800 text-gray-100 shover:text-white py-2 px-4 rounded">
           INFORMACIÓN
         </button>
+        </a>
       </div>
     </div>
     <?php endforeach; ?>

@@ -9,10 +9,8 @@ if (isset($_SESSION['message'])) {
 }
 
 $page = isset($_GET['page']) ? basename($_GET['page']) : 'home';
-
 // Verifica si el usuario está autenticado
-//if (!isset($_SESSION['user_id']) && $page !== 'login') 
-if (!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id']) && $page !== 'login'){
     $page = 'login';
 }
 

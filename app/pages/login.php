@@ -1,7 +1,7 @@
 <?php
-session_start();
+//session_start();// started in index.php
 if (isset($_SESSION['user_id'])) {
-    header('Location: ./index.php');
+    header('Location: ./app/index.php');
     exit;
 }
 include 'conn.php';

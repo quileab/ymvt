@@ -29,7 +29,7 @@ if ($is_edit) {
 
     <!-- Campo de Descripción -->
     <div class="mb-6">
-        <label for="description" class="block text-gray-800 text-sm font-semibold mb-2">Descripción:</label>
+        <label  class="block text-gray-800 text-sm font-semibold mb-2">Descripción:</label>
         <input type="hidden" id="description" name="description" value="<?= htmlspecialchars($description) ?>">
         <!-- Create the editor container -->
         <div id="editor"><?= $description ?>     
@@ -70,7 +70,6 @@ if ($is_edit) {
     <div class="mb-6">
         <label for="images" class="block text-gray-800 text-sm font-semibold mb-2">Imágenes del Destino:</label>
         <input type="file" id="images" name="images[]" accept="image/jpg, image/jpeg, image/png, image/webp" multiple class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-        <small>(las nuevas imágenes reemplazaran a las anteriores)</small>  
     </div>
 
     <!-- Mostrar imagenes del destino -->
@@ -80,17 +79,27 @@ if ($is_edit) {
         $imageDir = "../uploads/destinations";
         $imagePattern = sprintf('%d-*.jpg', $id); // Formato {id}-00n.jpg
         $images = glob("$imageDir/$imagePattern"); // Buscar imágenes que coincidan con el patrón
+        $featuredImage = sprintf('%s/%d-featured.jpg', $imageDir, $id);
 
         if ($images) {
-            echo '<div class="mb-4">';
-            echo '<label class="block text-gray-700 text-sm font-bold mb-2">Imágenes actuales:</label>';
-            echo '<div class="flex flex-wrap gap-4">';
+            echo '<div class="mb-2 block text-gray-700 text-sm font-bold">
+                Imágenes del Destino:
+                </div>';
+            echo '<div class="flex flex-wrap gap-4 mb-2">';
 
             foreach ($images as $image) {
                 $imagePath = str_replace(__DIR__, '', $image); // Para la ruta relativa
-                echo '<div class="w-24 h-24 border border-gray-200 overflow-hidden relative">';
+                echo '<div class="w-24 h-24 overflow-hidden relative rounded">';
                 echo "<img src=\"$imagePath\" alt=\"Imagen del destino\" class=\"w-full h-full object-cover\">";
-                echo '</div>';
+                echo '<div class="absolute bottom-0 right-0 p-1 flex w-full justify-between">';
+                if($image == $featuredImage) {
+                    echo '🌟🌟🌟';
+                }else {
+                    echo "<a href='feature_image.php?image=$image' class='text-blue-500' target='_self' title='Destacar'>🌟</a>";
+                    echo "<a href='delete_image.php?image=$image' target='_self' title='Eliminar'
+                        onclick='return confirm(\"¿Estás seguro de que deseas eliminar esta imagen?\")' >🗑️</a>";
+                }
+                echo '</div></div>';
             }
 
             echo '</div>';

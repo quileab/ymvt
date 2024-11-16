@@ -6,6 +6,7 @@
     <title><?= isset($title) ? htmlspecialchars($title) : 'Mi Aplicación de Viajes' ?></title>
     <!-- Incluye Tailwind CSS desde el CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/app/styles/styles.css">
 </head>
 <body class="bg-gray-100 text-gray-900">
 <header class="bg-blue-600 text-white p-4 shadow-md">
