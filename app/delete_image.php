@@ -10,5 +10,5 @@ if (file_exists($imagePath)) {
     unlink($imagePath);
 }
 
-header("Location: index.php?page=destination_form&id=$id#images");
+header("Location: index.php?page=destination_form&id=$id&cache=false#images");
 exit();

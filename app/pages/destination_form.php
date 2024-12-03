@@ -1,4 +1,3 @@
-
 <?php
 // Conectar a la base de datos
 include "conn.php";

@@ -7,12 +7,12 @@
 
   .destination-container {
     display: flex;
+    overflow: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 8rem 4rem 2rem 4rem;
+    margin: 8rem 2rem 2rem 2rem;
     border-radius: 1rem;
-    overflow: hidden;
     /*shadow*/
     box-shadow: 0px 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
     background-color: #fff;
@@ -20,22 +20,29 @@
 
   h1 {
     text-align: left;
-    font-size: 3rem;
+    font-size: calc(1.2rem + (2 - 1) * ((100vw - 20rem) / (48 - 20)));
     font-weight: bold;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    line-height: 0.7;
   }
 
   h2 {
     text-align: left;
-    font-size: 1.6rem;
+    font-size: calc(1rem + (2 - 1) * ((100vw - 20rem) / (48 - 20)));
     font-weight: bold;
     margin-top: 2rem;
     margin-bottom: 0.4rem;
   }
   .destination-description {
     display: block;
-    text-align: left; font-size: 1.2rem; margin-bottom: 1rem;
+    width: 100%;
+    text-align: left; 
+    font-size: calc(1rem + (2 - 1) * ((100vw - 20rem) / (48 - 20)));
+    font-size-adjust: 0.5;
+    margin-bottom: 1rem;
+    overflow: auto;
+    text-wrap: wrap;
   }
 </style>
 
@@ -56,8 +63,8 @@ $images = glob("$imageDir/$imagePattern"); // Buscar imágenes que coincidan con
 ?>
 <section id="destination" class="destination-container">
   <h1><?= $destination ?></h1>
-  <div class="swiffy-slider slider-item-helper slider-nav-autoplay " data-slider-nav-autoplay-interval="4000"
-    style="--swiffy-slider-item-reveal:10%;">
+  <div class="swiffy-slider slider-item-helper slider-nav-autoplay " data-slider-nav-autoplay-interval="4000">
+    <!--style="--swiffy-slider-item-reveal:10%;"-->
     <ul class="slider-container">
       <?php foreach ($images as $image) { 
         if($image == "./uploads/destinations/$id-featured.jpg") {
@@ -82,10 +89,10 @@ $images = glob("$imageDir/$imagePattern"); // Buscar imágenes que coincidan con
     </div>
   </div>
 
-  <div style="padding: 2rem;">
+  <div style="padding: calc(1rem + (2 - 1) * ((100vw - 20rem) / (48 - 20))); width: 100%;">
   <span class="destination-description" >
     <?= $description ?></span><hr>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom:2rem;">
+  <div style="margin-bottom:2rem;">
     <h2>Información del Viaje</h2>
     <ul>
       <li>
@@ -94,9 +101,9 @@ $images = glob("$imageDir/$imagePattern"); // Buscar imágenes que coincidan con
         Llegamos: <strong><?= date('d-m-Y', strtotime($arrival)) ?>
         </strong>
       </li>
-      <li>Precio: <?= $price ?></li>
-      <li>Precio Promocional: <?= $promo_price ?></li>
-      <li>Tags: <?= $tags ?></li>
+      <li>Precio: <strong><?= $price ?></strong></li>
+      <li>Precio Promocional: <strong><?= $promo_price ?></strong></li>
+      <li>Tags: <strong><?= $tags ?></strong></li>
     </ul>
   </div>
   </div>

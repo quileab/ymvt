@@ -33,7 +33,6 @@ if ($result && $result->num_rows > 0) {
     <?php foreach ($popularDestinations as $key => $value) : ?>
     <!-- Card -->
     <div class="w-full rounded overflow-hidden shadow-lg bg-gray-100">
-      <!--img class="w-full" src="https://source.unsplash.com/600x400/?nature" /-->
       <img class="w-full aspect-video" src="<?= $value["Hero"] ?>" />
       <div class="px-4 py-3">
         <div class="font-bold text-base mb-2">

@@ -29,7 +29,7 @@ $result = $conn->query($query);
                 <td class="py-3 px-4 border-b border-gray-200"><?= date('d-m-Y H:i', strtotime($row['arrival'])) ?></td>
                 <td class="py-3 px-4 border-b border-gray-200"><?= number_format($row['price'], 2) ?> USD</td>
                 <td class="py-3 px-4 border-b border-gray-200">
-                    <a href="index.php?page=destination_form&id=<?= $row['id'] ?>" class="text-blue-500 hover:underline">Editar</a> |
+                    <a href="index.php?page=destination_form&id=<?= $row['id'] ?>&cache=false" class="text-blue-500 hover:underline">Editar</a> |
                     <a href="delete_destination.php?id=<?= $row['id'] ?>" class="text-red-500 hover:underline" onclick="return confirm('¿Estás seguro de que deseas eliminar este destino?');">Eliminar</a>
                 </td>
             </tr>

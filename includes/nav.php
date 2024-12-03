@@ -20,18 +20,18 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
       <ul class="flex flex-col text-2xl md:text-base md:flex-row md:space-x-8 md:mt-0">
         <li class="md:py-3 py-5">
-          <a href="./page=home"
+          <a href="./?page=home"
             class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">
             Home</a>
         </li>
-        <li class="md:py-3 py-5">
+        <!--li class="md:py-3 py-5">
           <a href="#" class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">
             Nosotros</a>
-        </li>
-        <li class="md:py-3 py-5">
+        </li-->
+        <!--li class="md:py-3 py-5">
           <a href="#" class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">
             Destinos</a>
-        </li>
+        </li-->
         <li class="md:py-3 py-5">
           <a href="./?page=contacts"
             class="p-3 text-white hover:bg-opacity-70 hover:bg-green-900 transition hover:duration-300">

@@ -17,7 +17,7 @@ $allowed_pages = ['destination','contacts','legal','home'];
 // Carga la página solicitada si está permitida
 if (in_array($page, $allowed_pages)) {
   echo"<main style='margin-top: 5.5rem;'>";
-    include "pages/{$page}.php";
+    include "./pages/{$page}.php";
   echo"</main>";
 } else {
     echo "<p>Página no encontrada.</p>";
