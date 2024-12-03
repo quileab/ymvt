@@ -27,8 +27,12 @@
                 <?php include"./images/social/icons8-phone.svg"; ?> +54 9 3764 526072
             </a>
             <a class="flex flex-wrap p-1 hover:text-yellow-100 hover:bg-green-600 rounded transition-all transition-duration: 300ms"
-                href="mailto:yerbamateviajesyturismo@gmail.com" target="_blank">
-                <?php include"./images/social/email-svgrepo-com.svg"; ?> yerbamateviajesyturismo@gmail.com
+                href="mailto:adm@yerbamateviajesyturismo.com" target="_blank">
+                <?php include"./images/social/email-svgrepo-com.svg"; ?> adm@yerbamateviajesyturismo.com
+            </a>
+            <a class="flex flex-wrap p-1 hover:text-yellow-100 hover:bg-green-600 rounded transition-all transition-duration: 300ms"
+                href="mailto:info@yerbamateviajesyturismo.com" target="_blank">
+                <?php include"./images/social/email-svgrepo-com.svg"; ?> info@yerbamateviajesyturismo.com
             </a>
             <button data-filename="reclamos-sugerencias.html"
                 class="openDialog flex w-full hover:bg-green-600 text-gray-100 font-semibold hover:text-white py-2 px-1 rounded">

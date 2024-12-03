@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 :root{
@@ -15,16 +15,27 @@
 body{
   font-family: 'Open Sans', sans-serif;
   background-color: var(--base-color);
-  background: rgb(7,102,0);
-  background: linear-gradient(137deg, rgba(7,102,0,1) 0%, rgba(255,247,178,1) 16%, rgba(8,121,0,1) 100%);
+  background: rgb(229, 243, 227);
+  background: linear-gradient(137deg, rgb(219, 225, 214) 0%, rgb(237, 237, 237) 16%, rgb(208, 240, 206) 100%);
 }
 
 h1{
-  font-family: 'The Nautigal', cursive;
+  font-family: 'Nunito Sans', cursive;
 }
 
 h2{
   font-family: 'Antic Didone', serif;
+}
+
+#hero-slider h1{
+  font-family: 'Nunito Sans';
+  font-size: 1.8rem;
+  text-shadow: black 0px 0px 5px;
+}
+#hero-slider h2{
+  font-family: 'Nunito Sans';
+  font-size: 1.2rem;
+  text-shadow: black 0px 0px 5px;
 }
 
 a{
