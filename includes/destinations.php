@@ -41,15 +41,25 @@ if ($result && $result->num_rows > 0) {
 
         </div>
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 text-center text-2xl md:text-base">
-          <del><small><?= $value["PriceOld"]?></small></del>
-          <strong>🏷️<?= $value["Price"]?></strong>
-          <p class="font-light"><small>🛫 <?= $value["DateFrom"]?></small></p>
-          <p class="font-light"><small>🛬 <?= $value["DateTo"]?></small></p>
+          <del><small>u$s <?= $value["PriceOld"]?></small></del>
+          <strong>🏷️ u$s <?= $value["Price"]?></strong>
+          <!--p class="font-light"><small>🛫 <?= $value["DateFrom"]?></small></p>
+          <p class="font-light"><small>🛬 <?= $value["DateTo"]?></small></p-->
         </div>
 
         <hr class="my-2" />
         <p class="text-gray-900 text-2xl md:text-base">
-          <small><?= $value["Description"] ?></small>
+          <small><p>
+            <?php
+            $description=strip_tags($value["Description"],"<br>");
+            if(strlen($description)>110){
+                echo mb_substr($description, 0, 110)."...";
+            }
+            else{
+                echo $description;
+            }
+            ?>
+          </p></small>
         </p>
         <a href="./?page=destination&id=<?= $value["id"]?>">
         <button class="mt-4 w-full text-base md:text-xs bg-green-700 hover:bg-green-800 text-gray-100 shover:text-white py-2 px-4 rounded">
